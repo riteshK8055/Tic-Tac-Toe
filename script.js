@@ -19,6 +19,10 @@ const startGame = () =>{
             if(e.target.textContent === ''){
 
                 e.target.textContent = playerTurn;
+                if(checkWin()){
+
+                    console.log(`${playerTurn} is a winner`);
+                }
                 changePlayerTurn();
             }
            
@@ -33,5 +37,34 @@ const changePlayerTurn = () =>{
     playerTurn = playerTurn === currentPlayer ? nextPlayer : currentPlayer;
 }
 
+
+//function to check win 
+const checkWin = () => {
+
+    const winingConditions = 
+    [
+
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+        [0,4,8],
+        [2,4,6],
+    ];
+
+    for(let i = 0 ; i<winingConditions.length ; i++){
+
+        const [pos1 , pos2 ,pos3 ] = winingConditions[i];
+        if(gameCells[pos1].textContent !== '' && gameCells[pos1].textContent === gameCells[pos2].textContent && gameCells[pos2].textContent === gameCells[pos3].textContent){
+
+            return true;
+        }
+        
+    }
+
+    return false;
+}
 startGame();
 
