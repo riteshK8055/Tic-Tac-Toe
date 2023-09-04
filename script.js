@@ -2,6 +2,7 @@ const gameCells = document.querySelectorAll('.cell');
 const player1 = document.querySelector('.player1');
 const player2 = document.querySelector('.player2');
 const restartBtn = document.querySelector('.restartBtn');
+const alertBox = document.querySelector('.alertBox');
 
 //making variables 
 
@@ -31,18 +32,19 @@ const handleClick = (e) =>{
         e.target.textContent = playerTurn;
         if(checkWin()){
 
-            console.log(`${playerTurn} is a winner`);
+            showAlert(`${playerTurn} is a winner`);
             disableCells();
         }
 
         else if (checkTie()){
 
-            console.log(`It's a Tie!`);
+            showAlert(`It's a Tie!`);
             disableCells();
         }
         
         else{
 
+            showAlert(`Turn for Player : ${playerTurn}`);
             changePlayerTurn();
         }
     }
@@ -123,7 +125,22 @@ const restartGame = () =>{
     })
     startGame();
 }
+
+
+const showAlert = (msg) => {
+
+    alertBox.style.display = "block";
+    alertBox.textContent = msg;
+    setTimeout(() => {
+
+        alertBox.style.display = "none";
+    },3000);
+}
+
+//adding event listner to restart button
 restartBtn.addEventListener('click',restartGame);
+
+
 //calling start game function
 startGame();
 
