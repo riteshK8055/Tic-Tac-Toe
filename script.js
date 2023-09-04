@@ -14,33 +14,38 @@ const startGame = () =>{
 
     gameCells.forEach(cell => {
 
-        cell.addEventListener('click',(e) =>{
-
-            if(e.target.textContent === ''){
-
-                e.target.textContent = playerTurn;
-                if(checkWin()){
-
-                    console.log(`${playerTurn} is a winner`);
-                }
-
-                else if (checkTie()){
-
-                    console.log(`It's a Tie!`);
-                }
-                
-                else{
-
-                    changePlayerTurn();
-                }
-            }
+        cell.addEventListener('click',handleClick)
            
-           
-           
-        });
     });
 }
 
+
+const handleClick = (e) =>{
+
+
+    if(e.target.textContent === ''){
+
+        e.target.textContent = playerTurn;
+        if(checkWin()){
+
+            console.log(`${playerTurn} is a winner`);
+            disableCells();
+        }
+
+        else if (checkTie()){
+
+            console.log(`It's a Tie!`);
+            disableCells();
+        }
+        
+        else{
+
+            changePlayerTurn();
+        }
+    }
+}
+
+// function to change player turn 
 const changePlayerTurn = () =>{
 
     playerTurn = playerTurn === currentPlayer ? nextPlayer : currentPlayer;
@@ -92,5 +97,17 @@ const checkTie = () => {
 
      return emptyCellsCount === 0 && !checkWin();
 }
+
+//function to disable game-board cells after a win or tie
+const disableCells = () => {
+
+    gameCells.forEach(cell => {
+
+        cell.removeEventListener('click' , handleClick);
+        cell.classList.add('disabled');
+    });
+}
+
+//calling start game function
 startGame();
 
