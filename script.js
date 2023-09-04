@@ -23,7 +23,16 @@ const startGame = () =>{
 
                     console.log(`${playerTurn} is a winner`);
                 }
-                changePlayerTurn();
+
+                else if (checkTie()){
+
+                    console.log(`It's a Tie!`);
+                }
+                
+                else{
+
+                    changePlayerTurn();
+                }
             }
            
            
@@ -38,7 +47,7 @@ const changePlayerTurn = () =>{
 }
 
 
-//function to check win 
+//function to check winning condn
 const checkWin = () => {
 
     const winingConditions = 
@@ -65,6 +74,23 @@ const checkWin = () => {
     }
 
     return false;
+}
+
+
+//Function to check for a tie
+
+const checkTie = () => {
+
+    let emptyCellsCount = 0 ;
+    gameCells.forEach(cell => {
+
+        if(cell.textContent === ''){
+
+            emptyCellsCount++;
+        }
+    });
+
+     return emptyCellsCount === 0 && !checkWin();
 }
 startGame();
 
