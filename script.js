@@ -9,6 +9,9 @@ let  currentPlayer = 'X';
 let nextPlayer = 'O';
 let playerTurn = currentPlayer;
 
+player1.textContent = `Player 1: ${currentPlayer}`;
+player2.textContent = `Player 2: ${nextPlayer}`;
+
 //Function to start your game
 const startGame = () =>{
 
@@ -108,6 +111,19 @@ const disableCells = () => {
     });
 }
 
+
+// function to restart  game
+
+const restartGame = () =>{
+
+    gameCells.forEach(cell => {
+
+        cell.textContent = '';
+        cell.classList.remove('disabled');
+    })
+    startGame();
+}
+restartBtn.addEventListener('click',restartGame);
 //calling start game function
 startGame();
 
